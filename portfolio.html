@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700i" rel="stylesheet">
+    <link rel="stylesheet" href="test.css">
+
+	<title>Portfolio</title>
+ <style>
+
+    /* Reset */
+
+*, *:after, *:before {
+	box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+	font-size: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+     font-family: 'Roboto Condensed', sans-serif;
+    color: #fff;
+    background: #fff;
+}
+
+a {
+	color: #fff;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #fff;
+}
+
+/* /Reset */
+
+html, body,
+.container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+body {
+
+	 overflow: hidden;
+}
+
+.splitlayout {
+	position: relative;
+	overflow-x: hidden;
+	min-height: 100%;
+	width: 100%;
+}
+
+/* Intro sides */
+.side {
+	position: fixed;
+	top: 0;
+	z-index: 100;
+	width: 50%;
+	height: 100%;
+	text-align: center;
+	-webkit-backface-visibility: hidden;
+}
+
+.open-left .side,
+.open-right .side {
+	cursor: default;
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 499;
+	visibility: hidden;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+
+.side-left .overlay {
+	background: rgba(0,0,0,0.7);
+}
+
+.side-right .overlay {
+	background: rgba(0,0,0,0.3);
+}
+
+.side-left {
+	left: 0;
+	background: #D6ED17FF;
+	color: #34495e;
+	outline: 1px solid #47a3da; /* avoid gap */
+}
+
+.side-right {
+	right: 0;
+	background: #535e69;
+	color: #D6ED17FF;
+	outline: 1px solid #34495e; /* avoid gap */
+}
+
+/* Intro content, profile image and name, back button */
+.intro-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	padding: 0 1em;
+	width: 50%;
+	cursor: pointer;
+	-webkit-transform: translateY(-50%) translateX(-50%);
+	transform: translateY(-50%) translateX(-50%);
+}
+
+.profile {
+	margin: 0 auto;
+	width: 190px;
+	height: 190px;
+	border-radius: 50%;
+	background: #34495e;
+
+}
+
+.profile img {
+	max-width: 100%;
+	border-radius: 50%;
+
+
+
+}
+
+.intro-content h1 > span {
+	display: block;
+	white-space: nowrap;
+}
+
+.intro-content h1 > span:first-child {
+	font-weight: bold;
+	font-size: 1em;
+}
+
+.intro-content h1 > span:nth-child(2) {
+	position: relative;
+	margin-top: 0.5em;
+	padding: 0.8em;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: 0.8em;
+}
+
+.intro-content h1 > span:nth-child(2):before {
+	position: absolute;
+	top: 0;
+	left: 25%;
+	width: 50%;
+	height: 2px;
+	background: #606060FF;
+	content: '';
+}
+
+.side-right .intro-content h1 > span:nth-child(2):before {
+	background: #D6ED17FF;
+}
+
+.back {
+	position: fixed;
+	top: 2.6em;
+	z-index: 500;
+	display: block;
+	visibility: hidden;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	color: #D6ED17FF;
+	text-align: center;
+	font-size: 22px;
+	line-height: 44px;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.mobile-layout .back {
+	position: absolute;
+}
+
+.back-left {
+	left: 12.5%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+
+.back-right {
+	right: 12.5%;
+	-webkit-transform: translateX(50%);
+	transform: translateX(50%);
+	color: #606060FF;
+}
+
+.open-right .back-left,
+.open-left .back-right {
+	visibility: visible;
+	opacity: 1;
+	-webkit-transition-delay: 0.3s;
+	transition-delay: 0.3s;
+	pointer-events: auto;
+}
+
+.back:hover {
+	color: #fff;
+}
+
+/* Pages */
+.page {
+	position: relative;
+	top: 0;
+	overflow: auto;
+	min-height: 100%;
+	width: 75%;
+	height: auto;
+	font-size: 1.4em;
+	-webkit-backface-visibility: hidden;
+}
+
+.page-right {
+	left: 25%;
+	outline: 5px solid #7F7FB7;
+	background: #fff;
+	color: #97a8b2;
+	-webkit-transform: translateX(100%);
+	transform: translateX(100%);
+}
+
+.splitlayout.open-right {
+	background: #fff;
+}
+
+.page-left {
+	left: 0;
+	outline: 5px solid #fff;
+	background: #fff;
+	color: #fff;
+	text-align: right;
+	-webkit-transform: translateX(-100%);
+	transform: translateX(-100%);
+}
+
+.splitlayout.open-left {
+	background: #5B5B5B;
+}
+
+/* Inner page content */
+.page-inner {
+	padding: 2em;
+}
+
+.page-inner section {
+	padding-bottom: 1em;
+}
+
+.page-inner h2 {
+	margin: 0 0 1em 0;
+	font-weight: bold;
+	font-size: 1.6em;
+}
+
+.page-inner p {
+	font-weight: 300;
+	font-size: 1em;
+    text-align: right;
+}
+
+/* All transitions */
+.side,
+.page {
+	-webkit-transition: -webkit-transform 0.6s;
+	transition: transform 0.6s;
+}
+
+.overlay {
+	-webkit-transition: opacity 0.6s, visibility 0.1s 0.6s;
+	transition: opacity 0.6s, visibility 0.1s 0.6s;
+}
+
+.intro-content {
+	-webkit-transition: -webkit-transform 0.6s, top 0.6s;
+	transition: transform 0.6s, top 0.6s;
+}
+
+.intro-content h1,
+.back {
+	-webkit-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+}
+
+/* Open and close */
+
+.reset-layout .page,
+.splitlayout.open-right .page-left,
+.splitlayout.open-left .page-right,
+.splitlayout.close-right .page-left,
+.splitlayout.close-left .page-right {
+	position: absolute;
+	overflow: hidden;
+	height: 100%;
+}
+
+.splitlayout.open-right .page-right,
+.splitlayout.open-left .page-left {
+	position: relative;
+	overflow: auto;
+	height: auto;
+}
+
+.open-right .side-left .overlay,
+.open-left .side-right .overlay {
+	visibility: visible;
+	opacity: 1;
+	-webkit-transition: opacity 0.6s;
+	transition: opacity 0.6s;
+}
+
+/* Right side open */
+.open-right .side-left {
+	-webkit-transform: translateX(-60%);
+	transform: translateX(-60%);
+}
+
+.open-right .side-right {
+	z-index: 200;
+	-webkit-transform: translateX(-150%);
+	transform: translateX(-150%);
+}
+
+.close-right .side-right {
+	z-index: 200;
+}
+
+.open-right .side-right .intro-content {
+	-webkit-transform: translateY(-50%) translateX(0%) scale(0.6);
+	transform: translateY(-50%) translateX(0%) scale(0.6);
+}
+
+.open-right .page-right {
+	-webkit-transform: translateX(0%);
+	transform: translateX(0%);
+}
+
+/* Left side open */
+.open-left .side-right {
+	-webkit-transform: translateX(60%);
+	transform: translateX(60%);
+}
+
+.open-left .side-left {
+	z-index: 200;
+	-webkit-transform: translateX(150%);
+	transform: translateX(150%);
+}
+
+.close-left .side-left {
+	z-index: 200;
+}
+
+.open-left .side-left .intro-content {
+	-webkit-transform: translateY(-50%) translateX(-100%) scale(0.6);
+	transform: translateY(-50%) translateX(-100%) scale(0.6);
+}
+
+.open-left .codropsheader {
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transition: opacity 0.3s, visibility 0.1s 0.3s;
+	transition: opacity 0.3s, visibility 0.1s 0.3s;
+}
+
+.open-left .page-left {
+	-webkit-transform: translateX(0%);
+	transform: translateX(0%);
+}
+
+/* Media Queries */
+@media screen and (max-width: 83em) {
+	.intro-content { font-size: 60%; }
+}
+
+@media screen and (max-width: 58em) {
+	body { font-size: 90%; }
+}
+
+@media screen and (max-width: 49.4375em) {
+	.open-right .side-right {
+		-webkit-transform: translateX(-175%);
+		transform: translateX(-175%);
+	}
+
+	.open-right .side-left {
+		-webkit-transform: translateX(-100%);
+		transform: translateX(-100%);
+	}
+
+	.open-left .side-right {
+		-webkit-transform: translateX(100%);
+		transform: translateX(100%);
+	}
+
+	.open-left .side-left {
+		-webkit-transform: translateX(175%);
+		transform: translateX(175%);
+	}
+
+	.page {
+		width: 100%;
+	}
+
+	.page-right {
+		left: 0;
+		padding-left: 15%;
+	}
+
+	.page-left {
+		padding-right: 15%;
+	}
+
+	.intro-content {
+		width: 100%;
+	}
+
+	.open-right .side-right .intro-content {
+		top: 100%;
+		-webkit-transform: translateY(-150px) translateX(-12.5%) scale(0.5);
+		transform: translateY(-150px) translateX(-12.5%) scale(0.5);
+	}
+
+	.open-left .side-left .intro-content {
+		top: 100%;
+		-webkit-transform: translateY(-150px) translateX(-87.5%) scale(0.5);
+		transform: translateY(-150px) translateX(-87.5%) scale(0.5);
+	}
+
+	.open-right .intro-content h1,
+	.open-left .intro-content h1 {
+		opacity: 0;
+	}
+
+	.back-left {
+		left: 6.25%;
+	}
+
+	.back-right {
+		right: 6.25%;
+	}
+}
+
+@media screen and (max-width: 42.5em) {
+	body { font-size: 80%; }
+	.intro-content { font-size: 50%; }
+}
+
+@media screen and (max-height: 41.125em) {
+	.intro-content {
+		-webkit-transform: translateY(-25%) translateX(-50%);
+		transform: translateY(-25%) translateX(-50%);
+	}
+}
+
+@media screen and (max-width: 39.375em) {
+	.intro-content .profile { -webkit-transform: scale(0.5); transform: scale(0.5); }
+}
+
+@media screen and (max-width: 320px) {
+	body { font-size: 70%; }
+}
+
+
+</style>
+</head>
+<body>
+	<section class="header">
+		<nav>
+			<a href="home.html"><img src="img/ym logo.png"></a>
+			<div class="nav-links">
+				<ul>
+					<li><a href="home.html">HOME</a></li>
+					<li><a href="about.html">ABOUT</a></li>
+					<li><a href="portfolio.html">PORTFOLIO</a></li>
+					<li><a href="contact us.html">CONTACT US</a></li>
+				</ul>
+
+			</div>
+		</nav>
+
+
+
+<div class="container">
+	<div id="splitlayout" class="splitlayout">
+		<div class="intro">
+			<div class="side side-left">
+				<div class="intro-content">
+					<div class="profile"><img src="img/yassir.png" alt="profile1"></div>
+					<br><br>
+					<h1><span>LAHBOUB Yassir</span><span>WEB DESIGNER</span></h1>
+				</div>
+				<div class="overlay"></div>
+			</div>
+			<div class="side side-right">
+				<div class="intro-content">
+					<div class="profile"><img src="img/mr1.png" alt="profile2"></div>
+					<br><br>
+					<h1><span>BEN BRAHIM Marouane</span><span>WEB DEVELOPER</span></h1>
+				</div>
+				<div class="overlay"></div>
+			</div>
+		</div><!-- /intro -->
+		<div class="page page-right">
+			<div class="page-inner">
+				<section>
+					<h2>WEB DEVELOPMENT</h2>
+          <h1>SKILLS:</h1>
+
+<div class="skillbar clearfix " data-percent="62%">
+	<div class="skillbar-title" style="background: #d35400;"><span>HTML5</span></div>
+	<div class="skillbar-bar" style="background: #e67e22;"></div>
+	<div class="skill-bar-percent Count">62</div>
+</div> <!-- End Skill Bar -->
+
+<div class="skillbar clearfix " data-percent="54%">
+	<div class="skillbar-title" style="background: #2980b9;"><span>CSS3</span></div>
+	<div class="skillbar-bar" style="background: #3498db;"></div>
+	<div class="skill-bar-percent Count">54</div>
+</div> <!-- End Skill Bar -->
+
+<div class="skillbar clearfix " data-percent="37%">
+	<div class="skillbar-title" style="background: #2c3e50;"><span>Python</span></div>
+	<div class="skillbar-bar" style="background: #2c3e50;"></div>
+	<div class="skill-bar-percent Count">34</div>
+</div> <!-- End Skill Bar -->
+
+<div class="skillbar clearfix " data-percent="45%">
+	<div class="skillbar-title" style="background: #46465e;"><span>Adobe XD</span></div>
+	<div class="skillbar-bar" style="background: #5a68a5;"></div>
+	<div class="skill-bar-percent Count">45</div>
+</div> <!-- End Skill Bar -->
+
+<div class="skillbar clearfix " data-percent="29%">
+	<div class="skillbar-title" style="background: #333333;"><span>Unix</span></div>
+	<div class="skillbar-bar" style="background: #525252;"></div>
+	<div class="skill-bar-percent Count">29</div>
+</div> <!-- End Skill Bar -->
+
+<div class="skillbar clearfix " data-percent="71%">
+	<div class="skillbar-title" style="background: #27ae60;"><span>Office</span></div>
+	<div class="skillbar-bar" style="background: #2ecc71;"></div>
+	<div class="skill-bar-percent Single Count">71</div>
+</div> <!-- End Skill Bar -->
+
+<div class="skillbar clearfix " data-percent="69%">
+	<div class="skillbar-title" style="background: #124e8c;"><span>Photoshop</span></div>
+	<div class="skillbar-bar" style="background: #4288d0;"></div>
+	<div class="skill-bar-percent Count">69</div>
+</div> <!-- End Skill Bar -->
+				</section>
+			</div><!-- /page-inner -->
+		</div><!-- /page-right -->
+		<div class="page page-left">
+			<div class="page-inner">
+				<section>
+					<style>
+div.a {
+  text-align: justify;
+}
+</style>
+<div class="a">
+					<p>WEB DESIGN</p2>
+          <p>SKILLS:</p>
+					</div>
+
+					<div class="skillbar clearfix " data-percent="51%">
+						<div class="skillbar-title" style="background: #d35400;"><span>HTML5</span></div>
+						<div class="skillbar-bar" style="background: #e67e22;"></div>
+						<div class="skill-bar-percent Count">51</div>
+					</div> <!-- End Skill Bar -->
+
+					<div class="skillbar clearfix " data-percent="54%">
+						<div class="skillbar-title" style="background: #2980b9;"><span>CSS3</span></div>
+						<div class="skillbar-bar" style="background: #3498db;"></div>
+						<div class="skill-bar-percent Count">54</div>
+					</div> <!-- End Skill Bar -->
+
+					<div class="skillbar clearfix " data-percent="35%">
+						<div class="skillbar-title" style="background: #2c3e50;"><span>Lightroom</span></div>
+						<div class="skillbar-bar" style="background: #2c3e50;"></div>
+						<div class="skill-bar-percent Count">35</div>
+					</div> <!-- End Skill Bar -->
+
+					<div class="skillbar clearfix " data-percent="68%">
+						<div class="skillbar-title" style="background: #46465e;"><span>Adobe XD</span></div>
+						<div class="skillbar-bar" style="background: #5a68a5;"></div>
+						<div class="skill-bar-percent Count">68</div>
+					</div> <!-- End Skill Bar -->
+
+					<div class="skillbar clearfix " data-percent="56%">
+						<div class="skillbar-title" style="background: #333333;"><span>Illustrator</span></div>
+						<div class="skillbar-bar" style="background: #525252;"></div>
+						<div class="skill-bar-percent Count">56</div>
+					</div> <!-- End Skill Bar -->
+
+					<div class="skillbar clearfix " data-percent="43%">
+						<div class="skillbar-title" style="background: #27ae60;"><span>Office</span></div>
+						<div class="skillbar-bar" style="background: #2ecc71;"></div>
+						<div class="skill-bar-percent Single Count">43</div>
+					</div> <!-- End Skill Bar -->
+
+					<div class="skillbar clearfix " data-percent="69%">
+						<div class="skillbar-title" style="background: #124e8c;"><span>Photoshop</span></div>
+						<div class="skillbar-bar" style="background: #4288d0;"></div>
+						<div class="skill-bar-percent Count">69</div>
+					</div> <!-- End Skill Bar -->
+									</section>
+								</div><!-- /page-inner -->
+							</div><!-- /page-right -->
+							<div class="page page-left">
+								<div class="page-inner">
+									<section>
+				</section>
+			</div><!-- /page-inner -->
+		</div><!-- /page-left -->
+		<a href="#" class="back back-right" title="back to intro">&rarr;</a>
+		<a href="#" class="back back-left" title="back to intro">&larr;</a>
+	</div><!-- /splitlayout -->
+</div><!-- /container -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".side-left .intro-content").click(function(){
+    	$(".splitlayout").addClass("open-left");
+    	$(".splitlayout").removeClass("close-right reset-layout");
+    });
+
+    $(".back-right").click(function(){
+    	$(".splitlayout").removeClass("open-left");
+    	$(".splitlayout").addClass("close-left reset-layout");
+    });
+
+    $(".side-right .intro-content").click(function(){
+    	$(".splitlayout").addClass("open-right");
+    	$(".splitlayout").removeClass("close-left reset-layout");
+    });
+
+    $(".back-left").click(function(){
+    	$(".splitlayout").removeClass("open-right");
+    	$(".splitlayout").addClass("close-right reset-layout");
+    });
+});
+</script>
+<script src="js.js"></script>
+</body>
+</html>
